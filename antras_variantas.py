@@ -19,11 +19,19 @@ class Pajamos(Irasas):
 class Biudzetas():
     def __init__(self):
         self.zurnalas = []
+        self.pajamos = []
+        self.islaidos = []
 
     def ataskaita(self):
         print("Biudzeto ataskaita:")
         for irasas in self.zurnalas:
-            print(f"Data: {irasas.dataa} {irasas.komentaras}: {irasas.suma}")
+            if isinstance(irasas, Pajamos):
+                #self.pajamos = [irasas.dataa, irasas.komentaras, irasas.suma]
+                print("Pajamos")
+                print(f"Data: {irasas.dataa} {irasas.komentaras}: {irasas.suma}")
+            else:
+                print("Islaidos")
+                print(f"Data: {irasas.dataa} {irasas.komentaras}: {irasas.suma}")
         print()
 
     def balansas(self):
