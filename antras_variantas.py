@@ -1,18 +1,21 @@
+
+import datetime
 import os
 
 class Irasas():
-    def __init__(self, suma, komentaras):
+    def __init__(self, suma, komentaras, dataa):
         self.suma = suma
         self.komentaras = komentaras
+        self.dataa = dataa
 
 class Islaidos(Irasas):
-    def __init__(self, suma, komentaras, gavejas):
-        super().__init__(suma, komentaras)
+    def __init__(self, suma, komentaras, dataa, gavejas):
+        super().__init__(suma, komentaras, dataa)
         self.gavejas = gavejas
 
 class Pajamos(Irasas):
-    def __init__(self, suma, komentaras, siuntejas):
-        super().__init__(suma, komentaras)
+    def __init__(self, suma, komentaras, dataa, siuntejas):
+        super().__init__(suma, komentaras, dataa)
         self.siuntejas = siuntejas
 
 class Biudzetas():
@@ -24,7 +27,7 @@ class Biudzetas():
     def ataskaita(self):
         print("Biudzeto ataskaita:")
         for irasas in self.zurnalas:
-            print(f"{irasas.komentaras}: {irasas.suma}")
+            print(f"Data: {irasas.dataa} {irasas.komentaras}: {irasas.suma}")
         print()
 
     def balansas(self):
@@ -37,14 +40,14 @@ class Biudzetas():
         print(f"Einamasis balansas: {balansas}")
         print()
 
-    def naujas_pajamu_irasas(self, suma, komentaras, siuntejas):
-        pajamos = Pajamos(suma, komentaras, siuntejas)
+    def naujas_pajamu_irasas(self, suma, komentaras, dataa, siuntejas):
+        pajamos = Pajamos(suma, komentaras, dataa, siuntejas)
         self.zurnalas.append(pajamos)
         print("Pajamų įrašas sėkmingai pridėtas.")
         print()
 
-    def naujas_islaidu_irasas(self, suma, komentaras, gavejas):
-        islaidos = Islaidos(suma, komentaras, gavejas)
+    def naujas_islaidu_irasas(self, suma, komentaras, dataa, gavejas):
+        islaidos = Islaidos(suma, komentaras, dataa, gavejas)
         self.zurnalas.append(islaidos)
         print("Išlaidų įrašas sėkmingai pridėtas.")
         print()
@@ -66,17 +69,26 @@ while True:
         suma = float(input("Įveskite pajamų sumą: "))
         komentaras = input("Įveskite komentarą: ")
         siuntejas = input("Įveskite pajamų siuntėją: ")
+
+        dataa = datetime.datetime.now().replace(microsecond=0)
+        biudzetas.naujas_pajamu_irasas(suma, komentaras, dataa, siuntejas)
+
         biudzetas.naujas_pajamu_irasas(suma, komentaras, siuntejas)
         input("Paspauskite ENTER, kad tęstumėte...")
         os.system('cls')
+
 
     elif choice == "2":
         suma = float(input("Įveskite išlaidų sumą: "))
         komentaras = input("Įveskite komentarą: ")
         gavejas = input("Įveskite išlaidų gavėją: ")
+
+        biudzetas.naujas_islaidu_irasas(suma, komentaras, datetime.datetime.now().replace(microsecond=0), gavejas)
+
         biudzetas.naujas_islaidu_irasas(suma, komentaras, gavejas)
         input("Paspauskite ENTER, kad tęstumėte...")
         os.system('cls')
+
 
     elif choice == "3":
         biudzetas.ataskaita()
