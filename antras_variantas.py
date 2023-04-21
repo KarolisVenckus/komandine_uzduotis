@@ -1,4 +1,6 @@
+
 import datetime
+import os
 
 class Irasas():
     def __init__(self, suma, komentaras, dataa):
@@ -73,20 +75,36 @@ while True:
         suma = float(input("Įveskite pajamų sumą: "))
         komentaras = input("Įveskite komentarą: ")
         siuntejas = input("Įveskite pajamų siuntėją: ")
+
         dataa = datetime.datetime.now().replace(microsecond=0)
         biudzetas.naujas_pajamu_irasas(suma, komentaras, dataa, siuntejas)
+
+        biudzetas.naujas_pajamu_irasas(suma, komentaras, siuntejas)
+        input("Paspauskite ENTER, kad tęstumėte...")
+        os.system('cls')
+
 
     elif choice == "2":
         suma = float(input("Įveskite išlaidų sumą: "))
         komentaras = input("Įveskite komentarą: ")
         gavejas = input("Įveskite išlaidų gavėją: ")
+
         biudzetas.naujas_islaidu_irasas(suma, komentaras, datetime.datetime.now().replace(microsecond=0), gavejas)
+
+        biudzetas.naujas_islaidu_irasas(suma, komentaras, gavejas)
+        input("Paspauskite ENTER, kad tęstumėte...")
+        os.system('cls')
+
 
     elif choice == "3":
         biudzetas.ataskaita()
+        input("Paspauskite ENTER, kad tęstumėte...")
+        os.system('cls')
 
     elif choice == "4":
         biudzetas.balansas()
+        input("Paspauskite ENTER, kad tęstumėte...")
+        os.system('cls')
 
     elif choice == "5":
         print("Geros dienos!")
