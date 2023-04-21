@@ -18,6 +18,8 @@ class Pajamos(Irasas):
 class Biudzetas():
     def __init__(self):
         self.zurnalas = []
+        self.pajamos = []
+        self.islaidos = []
 
     def ataskaita(self):
         print("Biudzeto ataskaita:")
