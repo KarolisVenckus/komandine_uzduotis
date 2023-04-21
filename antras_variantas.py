@@ -1,20 +1,20 @@
 class Irasas():
-    def init(self, suma, komentaras):
+    def __init__(self, suma, komentaras):
         self.suma = suma
         self.komentaras = komentaras
 
 class Islaidos(Irasas):
-    def init(self, suma, komentaras, gavejas):
-        super().init(suma, komentaras)
+    def __init__(self, suma, komentaras, gavejas):
+        super().__init__(suma, komentaras)
         self.gavejas = gavejas
 
 class Pajamos(Irasas):
-    def init(self, suma, komentaras, siuntejas):
-        super().init(suma, komentaras)
+    def __init__(self, suma, komentaras, siuntejas):
+        super().__init__(suma, komentaras)
         self.siuntejas = siuntejas
 
 class Biudzetas():
-    def init(self):
+    def __init__(self):
         self.zurnalas = []
 
     def ataskaita(self):
@@ -44,7 +44,7 @@ class Biudzetas():
         self.zurnalas.append(islaidos)
         print("Išlaidų įrašas sėkmingai pridėtas.")
         print()
-        
+
 biudzetas = Biudzetas()
 
 while True:
