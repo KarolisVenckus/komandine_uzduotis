@@ -1,5 +1,9 @@
+
+import datetime
+import os
+
 class Irasas():
-    '''Klasė, skirta biudžeto įrašams laikyti'''
+'''Klasė, skirta biudžeto įrašams laikyti'''
 
     def __init__(self, suma, komentaras):
         '''Konstruktorius, skirtas sukurti naują Irasas objektą.
@@ -11,8 +15,10 @@ class Irasas():
         Grąžinamos reikšmės:
         None
         '''     
+    def __init__(self, suma, komentaras, dataa):
         self.suma = suma
         self.komentaras = komentaras
+        self.dataa = dataa
 
 class Islaidos(Irasas):
     '''Klasė, skirta biudžeto išlaidų įrašams laikyti'''
@@ -60,7 +66,21 @@ class Biudzetas():
         Grąžinamos reikšmės:
         None
         '''
+=======
+    def __init__(self, suma, komentaras, dataa, gavejas):
+        super().__init__(suma, komentaras, dataa)
+        self.gavejas = gavejas
+
+class Pajamos(Irasas):
+    def __init__(self, suma, komentaras, dataa, siuntejas):
+        super().__init__(suma, komentaras, dataa)
+        self.siuntejas = siuntejas
+
+class Biudzetas():
+    def __init__(self):
         self.zurnalas = []
+        self.pajamos = []
+        self.islaidos = []
 
     def ataskaita(self):
         '''
@@ -71,7 +91,7 @@ class Biudzetas():
         '''
         print("Biudzeto ataskaita:")
         for irasas in self.zurnalas:
-            print(f"{irasas.komentaras}: {irasas.suma}")
+            print(f"Data: {irasas.dataa} {irasas.komentaras}: {irasas.suma}")
         print()
 
     def balansas(self):
@@ -98,6 +118,8 @@ class Biudzetas():
         None
         '''
         pajamos = Pajamos(suma, komentaras, siuntejas)
+    def naujas_pajamu_irasas(self, suma, komentaras, dataa, siuntejas):
+        pajamos = Pajamos(suma, komentaras, dataa, siuntejas)
         self.zurnalas.append(pajamos)
         print("Pajamų įrašas sėkmingai pridėtas.")
         print()
@@ -110,10 +132,12 @@ class Biudzetas():
         None
         '''
         islaidos = Islaidos(suma, komentaras, gavejas)
+    def naujas_islaidu_irasas(self, suma, komentaras, dataa, gavejas):
+        islaidos = Islaidos(suma, komentaras, dataa, gavejas)
         self.zurnalas.append(islaidos)
         print("Išlaidų įrašas sėkmingai pridėtas.")
         print()
-        
+
 biudzetas = Biudzetas()
 
 while True:
@@ -131,19 +155,30 @@ while True:
         suma = float(input("Įveskite pajamų sumą: "))
         komentaras = input("Įveskite komentarą: ")
         siuntejas = input("Įveskite pajamų siuntėją: ")
-        biudzetas.naujas_pajamu_irasas(suma, komentaras, siuntejas)
+        dataa = datetime.datetime.now().replace(microsecond=0)
+        biudzetas.naujas_pajamu_irasas(suma, komentaras, dataa, siuntejas)
+        input("Paspauskite ENTER, kad tęstumėte...")
+        os.system('cls')
+
 
     elif choice == "2":
         suma = float(input("Įveskite išlaidų sumą: "))
         komentaras = input("Įveskite komentarą: ")
         gavejas = input("Įveskite išlaidų gavėją: ")
-        biudzetas.naujas_islaidu_irasas(suma, komentaras, gavejas)
+        biudzetas.naujas_islaidu_irasas(suma, komentaras, datetime.datetime.now().replace(microsecond=0), gavejas)
+        input("Paspauskite ENTER, kad tęstumėte...")
+        os.system('cls')
+
 
     elif choice == "3":
         biudzetas.ataskaita()
+        input("Paspauskite ENTER, kad tęstumėte...")
+        os.system('cls')
 
     elif choice == "4":
         biudzetas.balansas()
+        input("Paspauskite ENTER, kad tęstumėte...")
+        os.system('cls')
 
     elif choice == "5":
         print("Geros dienos!")
