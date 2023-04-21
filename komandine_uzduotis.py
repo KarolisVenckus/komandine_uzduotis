@@ -1,177 +1,66 @@
-'Klasės'
-'Irasas (abstraktus)'
-
-'savybė suma'
-'savybė komentaras'
-'Islaidos(Irasas)'
-
-'savybė gavejas'
-'Pajamos(Irasas)'
-
-'-savybė siuntejas'
-'-Biudzetas'
-
-'-savybe zurnalas: sąrašas įrašų'
-'Biudzetas turi turėti metodus:'
-
-'ataskaitai'
-'balansas'
-'pajamų įrašo sukūrimas ir įtraukimui į žurnalą'
-'išlaidų įrašo sukūrimas ir įtraukimui į žurnalą'
-'Programos meniu ir funkcionalumą galite įgyvendinti tiek per klasę, tiek pagrindinėje programoje.'
-
 import os
-os.system('cls')
 
-# class Irasas():
-#     balansas = 0
-#     def __init__(self, suma, komentaras):
-#         self.suma = suma
-#         self.komentaras = komentaras
-
-#     def islaidos(self, suma):
-#         pass
-
-
-
-# class Islaidos(Irasas):
-#     def islaidos(self, suma):
-#         self.balansas = self.balansas - suma
-#         print(f"Isemimas sekmingas, balansas yra {self.balansas}")
-
-class Irasas():
-    def __init__(self, suma, komentaras):
-        self.suma = suma
-        self.komentaras = komentaras
-
-class Islaidos(Irasas):
-    def __init__(self, suma, komentaras, gavejas):
-        super().__init__(suma, komentaras)
-        self.gavejas = gavejas
-
-class Pajamos(Irasas):
-    def __init__(self, suma, komentaras, siuntejas):
-        super().__init__(suma, komentaras)
-        self.siuntejas = siuntejas
-
-class Biudzetas():
+class Budget:
     def __init__(self):
-        self.zurnalas = []
+        self.earnings = []
+        self.expenses = []
 
-    def ataskaita(self):
-        print("Biudzeto ataskaita:")
-        for irasas in self.zurnalas:
-            print(f"{irasas.komentaras}: {irasas.suma}")
-        print()
+    def add_earning(self, amount, comment):
+        self.earnings.append({'amount': amount, 'comment': comment})
 
-    def balansas(self):
-        balansas = 0
-        for irasas in self.zurnalas:
-            if isinstance(irasas, Islaidos):
-                balansas -= irasas.suma
-            elif isinstance(irasas, Pajamos):
-                balansas += irasas.suma
-        print(f"Einamasis balansas: {balansas}")
-        print()
+    def add_expense(self, amount, comment):
+        self.expenses.append({'amount': amount, 'comment': comment})
 
-    def naujas_pajamu_irasas(self, suma, komentaras, siuntejas):
-        pajamos = Pajamos(suma, komentaras, siuntejas)
-        self.zurnalas.append(pajamos)
-        print("Pajamų įrašas sėkmingai pridėtas.")
-        print()
+    def view_earnings(self):
+        print('--- EARNINGS ---')
+        for earning in self.earnings:
+            print(f"{earning['amount']}: {earning['comment']}")
 
-    def naujas_islaidu_irasas(self, suma, komentaras, gavejas):
-        islaidos = Islaidos(suma, komentaras, gavejas)
-        self.zurnalas.append(islaidos)
-        print("Išlaidų įrašas sėkmingai pridėtas.")
-        print()
+    def view_expenses(self):
+        print('--- EXPENSES ---')
+        for expense in self.expenses:
+            print(f"{expense['amount']}: {expense['comment']}")
 
+    def view_budget(self):
+        total_earnings = sum(earning['amount'] for earning in self.earnings)
+        total_expenses = sum(expense['amount'] for expense in self.expenses)
+        balance = total_earnings - total_expenses
+        print('--- BUDGET ---')
+        print(f"Earnings: {total_earnings}")
+        print(f"Expenses: {total_expenses}")
+        print(f"Balance: {balance}")
 
-biudzetas = Biudzetas()
+    def menu(self):
+        while True:
+            os.system('cls' if os.name == 'nt' else 'clear')  # Clear the terminal screen
+            print('--- MENU ---')
+            print('1. Add Earning')
+            print('2. Add Expense')
+            print('3. View Earnings')
+            print('4. View Expenses')
+            print('5. View Budget')
+            print('6. Quit')
+            choice = input('Enter your choice: ')
 
-while True:
-    print("Pasirinkite veiksmą:")
-    print("1. Pridėti naują pajamų įrašą")
-    print("2. Pridėti naują išlaidų įrašą")
-    print("3. Spausdinti biudžeto ataskaitą")
-    print("4. Spausdinti einamąjį balansą")
-    print("5. Išeiti iš programos")
+            if choice == '1':
+                amount = float(input('Enter earning amount: '))
+                comment = input('Enter comment: ')
+                self.add_earning(amount, comment)
+            elif choice == '2':
+                amount = float(input('Enter expense amount: '))
+                comment = input('Enter comment: ')
+                self.add_expense(amount, comment)
+            elif choice == '3':
+                self.view_earnings()
+            elif choice == '4':
+                self.view_expenses()
+            elif choice == '5':
+                self.view_budget()
+            elif choice == '6':
+                break
+            else:
+                print('Invalid choice. Try again.')
+            input('Press Enter to continue...')  # Wait for user to press Enter before continuing
 
-    choice = input("Jūsų pasirinkimas: ")
-    print()
-
-    if choice == "1":
-        suma = float(input("Įveskite pajamų sumą: "))
-        komentaras = input("Įveskite komentarą: ")
-        siuntejas = input("Įveskite pajamų siuntėją: ")
-        biudzetas.naujas_pajamu_irasas(suma, komentaras, siuntejas)
-
-    elif choice == "2":
-        suma = float(input("Įveskite išlaidų sumą: "))
-        komentaras = input("Įveskite komentarą: ")
-        gavejas = input("Įveskite išlaidų gavėją: ")
-        biudzetas.naujas_islaidu_irasas(suma, komentaras, gavejas)
-
-    elif choice == "3":
-        biudzetas.ataskaita()
-
-    elif choice == "4":
-        biudzetas.balansas()
-
-    elif choice == "5":
-        print("Geros dienos!")
-        break
-
-    else:
-        print("Neteisingas pasirinkimas, bandykite dar kartą.")
-        print()
-
-# while True:
-#     os.system('cls')
-
-#     # Pagrindinis meniu
-#     print("-BUHALTERIJA-")
-#     print("------- Meniu -------\n")
-#     print("1: Patikrinti balansa")
-#     print("2: Irasyti pajamas")
-#     print("3: Irasyti islaidas")
-#     print("4: Peržiūrėti ataskaita")
-
-#     print("0: Uždaryti programa")
-
-#     pasirinkimas = input("\nPasirinkite: ")
-
-#     # Patikrinti balansa
-#     if pasirinkimas == "1":
-#         break
-
-#     # Irasyti pajamas
-#     elif pasirinkimas == "2":
-#         break
-
-#     # Irasyti islaidas 
-#     elif pasirinkimas == "3":
-#         #os.system('cls')
-#         print("Irasyti islaidas")
-#         print('Įveskite islaidos suma:')            
-#         suma = input(">: ")
-#         print('Įveskite komentara:')
-#         komentaras = input(">: ")
-#         kazkas = Islaidos()
-#         kazkas.suma = suma
-#         print(kazkas.suma())
-#         input("press enter")
-
-    
-#     # Perziureti ataskaita    
-#     elif pasirinkimas == "4":
-#         break
-
-    
-#     # Iseiti is programos
-#     elif pasirinkimas == "0":
-#         break
-
-#     # Neteisingai pasirinktas meniu punktas
-#     else:
-#         print('Blogas pasirinkimas, bandykite dar karta')
+budget = Budget()
+budget.menu()
