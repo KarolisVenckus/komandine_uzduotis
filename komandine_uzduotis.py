@@ -62,5 +62,5 @@ class Budget:
                 print('Invalid choice. Try again.')
             input('Press Enter to continue...')  # Wait for user to press Enter before continuing
 
-            budget = Budget()
-            budget.menu()
+budget = Budget()
+budget.menu()
