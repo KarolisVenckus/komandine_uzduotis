@@ -1,3 +1,7 @@
+import date
+
+today = date.today()
+
 class Vartotojas:
     def __init__(self, vardas, pavarde, biudzetas) -> None:
         '''Įrašomas Vartotojas(vardas, pavarde, biudzetas)'''
