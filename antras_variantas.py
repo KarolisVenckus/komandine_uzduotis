@@ -69,11 +69,8 @@ while True:
         suma = float(input("Įveskite pajamų sumą: "))
         komentaras = input("Įveskite komentarą: ")
         siuntejas = input("Įveskite pajamų siuntėją: ")
-
         dataa = datetime.datetime.now().replace(microsecond=0)
         biudzetas.naujas_pajamu_irasas(suma, komentaras, dataa, siuntejas)
-
-        biudzetas.naujas_pajamu_irasas(suma, komentaras, siuntejas)
         input("Paspauskite ENTER, kad tęstumėte...")
         os.system('cls')
 
@@ -82,10 +79,8 @@ while True:
         suma = float(input("Įveskite išlaidų sumą: "))
         komentaras = input("Įveskite komentarą: ")
         gavejas = input("Įveskite išlaidų gavėją: ")
-
-        biudzetas.naujas_islaidu_irasas(suma, komentaras, datetime.datetime.now().replace(microsecond=0), gavejas)
-
-        biudzetas.naujas_islaidu_irasas(suma, komentaras, gavejas)
+        dataa = datetime.datetime.now().replace(microsecond=0)
+        biudzetas.naujas_islaidu_irasas(suma, komentaras, dataa, gavejas)
         input("Paspauskite ENTER, kad tęstumėte...")
         os.system('cls')
 
