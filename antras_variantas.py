@@ -1,29 +1,86 @@
 class Irasas():
-    def init(self, suma, komentaras):
+    '''Klasė, skirta biudžeto įrašams laikyti'''
+
+    def __init__(self, suma, komentaras):
+        '''Konstruktorius, skirtas sukurti naują Irasas objektą.
+        
+        Argumentai:
+        suma (int): suma
+        komentaras (str): įvedamo įrašo komentaras
+             
+        Grąžinamos reikšmės:
+        None
+        '''     
         self.suma = suma
         self.komentaras = komentaras
 
 class Islaidos(Irasas):
-    def init(self, suma, komentaras, gavejas):
-        super().init(suma, komentaras)
+    '''Klasė, skirta biudžeto išlaidų įrašams laikyti'''
+            
+    def __init__(self, suma, komentaras, gavejas):
+        '''
+        Konstruktorius, skirtas sukurti naują Islaidos objektą.
+        
+        Argumentai:
+        suma (int): suma
+        komentaras (str): įvedamų išlaidų komentaras
+        gavejas (str): kam skririamos išlaidos
+        
+        Grąžinamos reikšmės:
+        None
+        '''
+        super().__init__(suma, komentaras)
         self.gavejas = gavejas
 
 class Pajamos(Irasas):
-    def init(self, suma, komentaras, siuntejas):
-        super().init(suma, komentaras)
+    '''Klasė, skirta biudžeto pajamomų irašams laikyti'''
+
+    def __init__(self, suma, komentaras, siuntejas):
+        '''
+        Konstruktorius, skirtas sukurti naują Pajamos objektą.
+        
+        Argumentai:
+        suma (int): suma
+        komentaras (str): įvedamų pajamų komentaras
+        siuntejas (str): iš kur gautos pajamos
+        
+        Grąžinamos reikšmės:
+        None
+        '''
+        super().__init__(suma, komentaras)
         self.siuntejas = siuntejas
 
 class Biudzetas():
-    def init(self):
+    '''Klasė, skirta biudžeto žurnalui laikyti'''
+
+    def __init__(self):
+        '''
+        Konstruktorius, skirtas sukurti naują Biudzetas objektą.
+        
+        Grąžinamos reikšmės:
+        None
+        '''
         self.zurnalas = []
 
     def ataskaita(self):
+        '''
+        Funkcija, kuri atspausdina biudžeto ataskaitos informaciją.
+        
+        Grąžinamos reikšmės:
+        None
+        '''
         print("Biudzeto ataskaita:")
         for irasas in self.zurnalas:
             print(f"{irasas.komentaras}: {irasas.suma}")
         print()
 
     def balansas(self):
+        '''
+        Funkcija, kuri atspausdina balanso informaciją.
+        
+        Grąžinamos reikšmės:
+        None
+        '''
         balansas = 0
         for irasas in self.zurnalas:
             if isinstance(irasas, Islaidos):
@@ -34,12 +91,24 @@ class Biudzetas():
         print()
 
     def naujas_pajamu_irasas(self, suma, komentaras, siuntejas):
+        '''
+        Funkcija, kuri atspausdina naują pajamų įrašo informaciją.
+        
+        Grąžinamos reikšmės:
+        None
+        '''
         pajamos = Pajamos(suma, komentaras, siuntejas)
         self.zurnalas.append(pajamos)
         print("Pajamų įrašas sėkmingai pridėtas.")
         print()
 
     def naujas_islaidu_irasas(self, suma, komentaras, gavejas):
+        '''
+        Funkcija, kuri atspausdina naują pajamų įšlaidų informaciją.
+        
+        Grąžinamos reikšmės:
+        None
+        '''
         islaidos = Islaidos(suma, komentaras, gavejas)
         self.zurnalas.append(islaidos)
         print("Išlaidų įrašas sėkmingai pridėtas.")
